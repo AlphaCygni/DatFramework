@@ -12,12 +12,7 @@ namespace DatFramework.ViewFactories
         where T : Window, new()
         where U : WindowViewModel, new()
         where V : ViewParameters
-    {
-        //public ViewFactory()
-        //{
-
-        //}
-        
+    {        
         public static void Show(V parameters)
         {
             var view = new T();
