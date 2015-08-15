@@ -3,7 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:FrameworkConverters="clr-namespace:DatFramework.Converters"
+    xmlns:FrameworkViews="clr-namespace:DatFramework.Views">
+    
+    <FrameworkConverters:ImageVisibilityConverter x:Key="ImageVisibilityConverter" />
     
     <Style x:Key="DarkContainerStyle" TargetType="Panel">
         <Style.Setters>
@@ -77,5 +81,60 @@
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
         </Style.Setters>
+    </Style>
+    
+    <Style TargetType="ComboBox">
+        <Style.Setters>
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style.Setters>
+    </Style>
+    
+    <Style TargetType="ComboBoxItem">
+        <Style.Setters>
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style.Setters>
+    </Style>
+    
+    <Style TargetType="{x:Type FrameworkViews:ImageButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type FrameworkViews:ImageButton}" >
+                    <Button>
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Margin="2" 
+                                   Source="{TemplateBinding Image}" 
+                                   Width="{TemplateBinding ImageWidth}" 
+                                   Height="{TemplateBinding ImageHeight}" 
+                                   Visibility="{TemplateBinding Image, Converter={StaticResource ImageVisibilityConverter}}" 
+                                   VerticalAlignment="Center" />
+                            <TextBlock Text="{TemplateBinding Content}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type FrameworkViews:ImageOnlyButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type FrameworkViews:ImageOnlyButton}" >
+                    <Border x:Name="ImageOnlyButtonBorder" BorderBrush="Transparent" BorderThickness="2">
+                        <Image Margin="2" 
+                               Source="{TemplateBinding Image}" 
+                               Width="{TemplateBinding ImageWidth}" 
+                               Height="{TemplateBinding ImageHeight}" 
+                               VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="ImageOnlyButtonBorder" Value="LightSkyBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.ComponentModel;
 using DatFramework.ViewFactories;
 using DatFramework.Helpers;
 
@@ -21,9 +22,19 @@ namespace DatFramework.ViewModels
             Commands = new Dictionary<string, RelayCommand>();
         }
 
+        public override void OnPropertyChanged(String property)
+        {
+            base.OnPropertyChanged(property);
+
+            Commands.Values.ToList().ForEach(c =>
+            {
+                c.OnCanExecuteChanged();
+            });
+        }
+
         public RelayCommand RegisterCommand(string commandName, Action<object> executeMethod)
         {
-            Commands.Add(commandName, new RelayCommand(null, executeMethod));
+            Commands.Add(commandName, new RelayCommand(executeMethod));
 
             return Commands[commandName];
         }
@@ -34,5 +45,15 @@ namespace DatFramework.ViewModels
 
             return Commands[commandName];
         }
+
+        //public void RegisterDelegate(ViewModelBase viewModel, string member, string memberProperty, Action<object> delegateMethod)
+        //{
+        //    viewModel.PropertyChanged += delegate
+        //    {
+        //        if (Proper)
+                
+        //        GetType().GetProperty(member).GetType().GetProperty(memberProperty);
+        //    };
+        //}
     }
 }

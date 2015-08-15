@@ -11,8 +11,10 @@ using DatFramework.Helpers;
 
 namespace DatFramework.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    [Serializable]
+    public class ViewModelBase : IViewModel, INotifyPropertyChanged
     {
+        [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ViewModelBase()
@@ -20,7 +22,7 @@ namespace DatFramework.ViewModels
 
         }
 
-        public void OnPropertyChanged(String property)
+        public virtual void OnPropertyChanged(String property)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
 
