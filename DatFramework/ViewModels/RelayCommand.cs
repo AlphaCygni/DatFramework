@@ -12,7 +12,7 @@ namespace DatFramework.ViewModels
         #region Fields
 
         private Action<object> execute;
-        private Predicate<object> canExecute;        
+        private Predicate<object> canExecute;
 
         #endregion
 
@@ -45,8 +45,8 @@ namespace DatFramework.ViewModels
         /// <param name="execute">The execution logic.</param>
         public RelayCommand(Action<object> execute)
             : this(DefaultCanExecute, execute)
-        {  
-          
+        {
+
         }
 
         /// <summary>

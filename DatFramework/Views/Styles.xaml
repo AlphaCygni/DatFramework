@@ -6,19 +6,39 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:FrameworkConverters="clr-namespace:DatFramework.Converters"
     xmlns:FrameworkViews="clr-namespace:DatFramework.Views">
-    
+
     <FrameworkConverters:ImageVisibilityConverter x:Key="ImageVisibilityConverter" />
-    
+
     <Style x:Key="DarkContainerStyle" TargetType="Panel">
         <Style.Setters>
-            <Setter Property="Background" Value="#FFA2A2A2" />
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA0A0A0" Offset="0" />
+                        <GradientStop Color="#FF666666" Offset="1" />                        
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="DarkerContainerStyle" TargetType="Panel">
+        <Style.Setters>
+            <Setter Property="Background">
+                <Setter.Value>                    
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FF767676" Offset="0"/>
+                            <GradientStop Color="#FF343434" Offset="1"/>
+                        </LinearGradientBrush>                    
+                </Setter.Value>
+            </Setter>
         </Style.Setters>
     </Style>
 
     <Style x:Key="ShadowStyle">
         <Setter Property="Control.Foreground" Value="#FF6C6C6C" />
     </Style>
-
+    
     <Style x:Key="RedMouseOverButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Template">
             <Setter.Value>
@@ -46,7 +66,7 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="Red" />
                             <Setter TargetName="border" Property="BorderBrush" Value="DarkGray" />
-                                <!--<Setter.Value>
+                            <!--<Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFB60000" Offset="0.35"/>
                                         <GradientStop Color="#FFE40202" Offset="0.95"/>
@@ -73,23 +93,93 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>   
+        </Setter>
     </Style>
 
+    <!--<Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button" >
+                    <Border Name="border" BorderThickness="1" Padding="4,2" BorderBrush="DarkGray" CornerRadius="3" Background="{TemplateBinding Background}" >
+                        <Grid>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="contentShadow" Style="{StaticResource ShadowStyle}" >
+                                <ContentPresenter.RenderTransform>
+                                    <TranslateTransform X="1.0" Y="1.0" />
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="content" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            --><!--<Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            <Setter Property="Foreground" Value="White" />--><!--                            
+                            <Setter Property="Background" Value="#FF147BD1" />
+                            --><!--<Setter Property="Background" Value="#FF408D6A" />--><!--
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background" Value="#FF46CBF1" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#FFF7F71A" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="DarkGray" />
+                            --><!--<Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#FFB60000" Offset="0.35"/>
+                                        <GradientStop Color="#FFE40202" Offset="0.95"/>
+                                        <GradientStop Color="#FFB60000" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>--><!--
+                            <Setter TargetName="content" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            --><!--<Setter Property="Foreground" Value="#FF282828" />--><!--
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+    
+    <Style TargetType="TextBlock">
+        <Style.Setters>
+            <Setter Property="Foreground" Value="White" />
+        </Style.Setters>
+    </Style>
+    
     <Style TargetType="TextBox">
         <Style.Setters>
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
         </Style.Setters>
     </Style>
-    
+
+    <Style TargetType="PasswordBox">
+        <Style.Setters>
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style.Setters>
+    </Style>
+
     <Style TargetType="ComboBox">
         <Style.Setters>
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
         </Style.Setters>
     </Style>
-    
+
     <Style TargetType="ComboBoxItem">
         <Style.Setters>
             <Setter Property="Background" Value="White" />
@@ -97,6 +187,19 @@
         </Style.Setters>
     </Style>
     
+    <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+        <Style.Setters>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FF212121" Offset="1"/>
+                        <GradientStop Color="#FF2B2B2B" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
     <Style TargetType="{x:Type FrameworkViews:ImageButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -131,6 +234,59 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" TargetName="ImageOnlyButtonBorder" Value="LightSkyBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+
+    <Style x:Key="HeaderlessGroupBoxStyle" TargetType="{x:Type GroupBox}" BasedOn="{StaticResource {x:Type GroupBox}}">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0.5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GroupBox}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="6"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="6"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Border BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="4" CornerRadius="4" Grid.Row="1" Grid.RowSpan="3"/>
+                        <Border x:Name="Header" Grid.Column="1" Padding="3,1,3,0" Grid.RowSpan="2">
+                            <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ContentPresenter Grid.ColumnSpan="2" Grid.Column="1" Margin="{TemplateBinding Padding}" Grid.Row="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        <Border BorderBrush="#FF3E3E3E" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="4" CornerRadius="4" Grid.Row="1" Grid.RowSpan="3">
+                            <Border.OpacityMask>
+                                <MultiBinding ConverterParameter="7" Converter="{StaticResource BorderGapMaskConverter}">
+                                    <Binding ElementName="Header" Path="ActualWidth"/>
+                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                                </MultiBinding>
+                            </Border.OpacityMask>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                <Border BorderBrush="#FF646464" BorderThickness="1.5" CornerRadius="2"/>
+                            </Border>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Header" Value="{x:Null}">
+                            <Setter TargetName="Header" Property="Padding" Value="0" />
+                        </Trigger>
+                        <Trigger Property="Header" Value="">
+                            <Setter TargetName="Header" Property="Padding" Value="0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
