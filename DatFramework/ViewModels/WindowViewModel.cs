@@ -12,16 +12,21 @@ using System.Linq.Expressions;
 
 namespace DatFramework.ViewModels
 {
+    public delegate void SelectedItemChanged();
+    
     public class WindowViewModel : ViewModelBase
-    {               
-        public Dictionary<string, RelayCommand> Commands { get; private set; }
+    {  
+        public List<RelayCommand> Commands { get; private set; }
+
+        //public List<DatDelegate> Delegates { get; private set; }
 
         public ViewParameters Parameters { get; set; }
 
         public WindowViewModel()
             : base()
-        {
-            Commands = new Dictionary<string, RelayCommand>();
+        {            
+            Commands = new List<RelayCommand>();
+            //Delegates = new List<DatDelegate>();
 
             Initialize();
         }
@@ -46,28 +51,50 @@ namespace DatFramework.ViewModels
         {
             base.OnPropertyChanged(property);
 
-            Commands.Values.ToList().ForEach(c =>
-            {                
-                c.OnCanExecuteChanged();                
+            Commands.ForEach(c =>
+            {
+                c.OnCanExecuteChanged();
             });
+
+            //Delegates.ForEach(d =>
+            //{
+            //    if (d.PropertyName.Equals(property))
+            //    {
+            //        d.Delegate.DynamicInvoke();
+            //    }
+            //});
         }
 
         public RelayCommand RegisterCommand<T>(Expression<Func<T>> commandPropertyExpression, Action<object> executeMethod)
-        {
-            var commandName = (((MemberExpression)(commandPropertyExpression.Body)).Member).Name;
-            
-            Commands.Add(commandName, new RelayCommand(executeMethod));
+        {            
+            var command = new RelayCommand((((MemberExpression)(commandPropertyExpression.Body)).Member).Name, executeMethod);
 
-            return Commands[commandName];
+            Commands.Add(command);
+
+            return command;
         }
 
         public RelayCommand RegisterCommand<T>(Expression<Func<T>> commandPropertyExpression, Predicate<object> canExecuteMethod, Action<object> executeMethod)
         {
-            var commandName = (((MemberExpression)(commandPropertyExpression.Body)).Member).Name;
+            var command = new RelayCommand((((MemberExpression)(commandPropertyExpression.Body)).Member).Name, canExecuteMethod, executeMethod);
 
-            Commands.Add(commandName, new RelayCommand(canExecuteMethod, executeMethod));
+            Commands.Add(command);
 
-            return Commands[commandName];
+            return command;
         }
+
+        //public void RegisterDelegate<T>(object target, Expression<Func<T>> propertyNameExpression, Action<object> executeMethod)
+        //{
+        //    var property = (((MemberExpression)(propertyNameExpression.Body)).Member).Name;
+
+        //    Delegates.Add(new DatDelegate(property, target, executeMethod));
+        //}
+
+        //public void RegisterDelegate<T>(WindowViewModel target, DatList<T> list, Action<object> executeMethod)
+        //{
+        //    list.SelectedItem
+
+        //    Delegates.Add(new DatDelegate(property, target, executeMethod));
+        //}
     }
 }

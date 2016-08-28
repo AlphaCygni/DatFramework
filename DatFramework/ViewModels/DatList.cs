@@ -10,6 +10,8 @@ using System.Collections.Specialized;
 
 namespace DatFramework.ViewModels
 {
+    public delegate void SelectedItemChanged();
+    
     [Serializable]
     public class DatList<T> : ObservableCollection<T>
     {
@@ -34,6 +36,8 @@ namespace DatFramework.ViewModels
                 Set(ref selectedItem, value);
             }
         }
+
+        public SelectedItemChanged SelectedItemChanged;
 
         public DatList()
             : base()
@@ -82,8 +86,19 @@ namespace DatFramework.ViewModels
             {
                 field = value;
                 OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+
+                if (propertyName.Equals("SelectedItem"))
+                {
+                    OnSelectedItemChanged();
+                }
+
                 return true;
             }
+        }
+
+        public void OnSelectedItemChanged()
+        {
+            SelectedItemChanged();
         }
     }
 }

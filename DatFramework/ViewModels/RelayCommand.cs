@@ -11,8 +11,21 @@ namespace DatFramework.ViewModels
     {
         #region Fields
 
+        private string name;        
         private Action<object> execute;
         private Predicate<object> canExecute;
+
+        #endregion
+
+        #region Properties
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }            
+        }
 
         #endregion
 
@@ -43,10 +56,10 @@ namespace DatFramework.ViewModels
         /// Creates a new command.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action<object> execute)
-            : this(DefaultCanExecute, execute)
+        public RelayCommand(string name, Action<object> execute)
+            : this(name, DefaultCanExecute, execute)
         {
-
+            
         }
 
         /// <summary>
@@ -54,7 +67,7 @@ namespace DatFramework.ViewModels
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Predicate<object> canExecute, Action<object> execute)
+        public RelayCommand(string name, Predicate<object> canExecute, Action<object> execute)
         {
             if (execute == null)
             {
@@ -66,6 +79,7 @@ namespace DatFramework.ViewModels
                 throw new ArgumentNullException("canExecute");
             }
 
+            this.name = name;
             this.execute = execute;
             this.canExecute = canExecute;
         }
