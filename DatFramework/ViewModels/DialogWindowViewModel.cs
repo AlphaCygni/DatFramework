@@ -1,32 +1,31 @@
-﻿using System;
+﻿using DatFramework.ViewFactories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using System.ComponentModel;
-using DatFramework.ViewFactories;
-using DatFramework.Helpers;
-using System.Windows;
-using System.Linq.Expressions;
 
 namespace DatFramework.ViewModels
 {
-    //public delegate void SelectedItemChanged();
-    
-    public class WindowViewModel : ViewModelBase
-    {  
-        public List<RelayCommand> Commands { get; private set; }
+    public class DialogWindowViewModel : ViewModelBase
+    {
+        public event EventHandler RequestClose;
+        
+        public bool IsAccept { get; set; }
+        
+        public RelayCommand AcceptCommand { get; private set; }
 
-        //public List<DatDelegate> Delegates { get; private set; }
+        public RelayCommand CancelCommand { get; private set; }        
+        
+        public List<RelayCommand> Commands { get; private set; }        
 
         public ViewParameters Parameters { get; set; }
 
-        public WindowViewModel()
+        public DialogWindowViewModel()
             : base()
         {            
             Commands = new List<RelayCommand>();
-            //Delegates = new List<DatDelegate>();
 
             Initialize();
         }
@@ -39,7 +38,8 @@ namespace DatFramework.ViewModels
 
         public virtual void InitializeCommands()
         {
-
+            AcceptCommand = RegisterCommand(() => AcceptCommand, e => Accept());
+            CancelCommand = RegisterCommand(() => CancelCommand, e => Cancel());
         }
 
         public virtual void InitializeDelegates()
@@ -55,14 +55,6 @@ namespace DatFramework.ViewModels
             {
                 c.OnCanExecuteChanged();
             });
-
-            //Delegates.ForEach(d =>
-            //{
-            //    if (d.PropertyName.Equals(property))
-            //    {
-            //        d.Delegate.DynamicInvoke();
-            //    }
-            //});
         }
 
         public RelayCommand RegisterCommand<T>(Expression<Func<T>> commandPropertyExpression, Action<object> executeMethod)
@@ -83,18 +75,18 @@ namespace DatFramework.ViewModels
             return command;
         }
 
-        //public void RegisterDelegate<T>(object target, Expression<Func<T>> propertyNameExpression, Action<object> executeMethod)
-        //{
-        //    var property = (((MemberExpression)(propertyNameExpression.Body)).Member).Name;
+        public void Accept()
+        {
+            IsAccept = true;
 
-        //    Delegates.Add(new DatDelegate(property, target, executeMethod));
-        //}
+            RequestClose.Invoke(null, null);
+        }
 
-        //public void RegisterDelegate<T>(WindowViewModel target, DatList<T> list, Action<object> executeMethod)
-        //{
-        //    list.SelectedItem
+        public void Cancel()
+        {
+            IsAccept = false;
 
-        //    Delegates.Add(new DatDelegate(property, target, executeMethod));
-        //}
+            RequestClose.Invoke(null, null);
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace DatFramework.ViewFactories
             var viewModel = new U();
             viewModel.Parameters = parameters;
             view.DataContext = viewModel;
-            view.Show();
+            view.Show();          
         }
     }
 }

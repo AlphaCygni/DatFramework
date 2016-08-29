@@ -98,7 +98,10 @@ namespace DatFramework.ViewModels
 
         public void OnSelectedItemChanged()
         {
-            SelectedItemChanged();
+            if (SelectedItemChanged != null)
+            {
+                SelectedItemChanged();
+            }
         }
     }
 }
