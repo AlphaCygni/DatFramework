@@ -27,25 +27,9 @@ namespace DatFramework.ViewModels
         {            
             Commands = new List<RelayCommand>();
 
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            InitializeCommands();
-            InitializeDelegates();
-        }
-
-        public virtual void InitializeCommands()
-        {
             AcceptCommand = RegisterCommand(() => AcceptCommand, e => Accept());
             CancelCommand = RegisterCommand(() => CancelCommand, e => Cancel());
-        }
-
-        public virtual void InitializeDelegates()
-        {
-
-        }
+        }        
 
         public override void OnPropertyChanged(String property)
         {
@@ -75,14 +59,14 @@ namespace DatFramework.ViewModels
             return command;
         }
 
-        public void Accept()
+        public virtual void Accept()
         {
             IsAccept = true;
 
             RequestClose.Invoke(null, null);
         }
 
-        public void Cancel()
+        public virtual void Cancel()
         {
             IsAccept = false;
 
