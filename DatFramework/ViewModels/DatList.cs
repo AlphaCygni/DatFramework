@@ -62,8 +62,8 @@ namespace DatFramework.ViewModels
         }
 
         public void SetItems(List<T> list)
-        {  
-            Items.Clear();
+        {
+            Clear();
 
             list.ForEach(i =>
             {

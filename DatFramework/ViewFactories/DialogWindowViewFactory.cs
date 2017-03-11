@@ -19,6 +19,7 @@ namespace DatFramework.ViewFactories
             var viewModel = new U() { Parameters = parameters };
             view.DataContext = viewModel;
             viewModel.RequestClose += (sender, e) => view.Close();
+            viewModel.Initialize();
 
             view.ShowDialog();
 

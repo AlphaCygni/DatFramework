@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\CapitalizeFirstCharacterConverter.cs" />
     <Compile Include="Converters\ImageVisibilityConverter.cs" />
     <Compile Include="Helpers\FocusExtension.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />

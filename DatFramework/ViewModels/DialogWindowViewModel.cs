@@ -24,12 +24,30 @@ namespace DatFramework.ViewModels
 
         public DialogWindowViewModel()
             : base()
-        {            
+        {  
             Commands = new List<RelayCommand>();
 
-            AcceptCommand = RegisterCommand(() => AcceptCommand, e => Accept());
-            CancelCommand = RegisterCommand(() => CancelCommand, e => Cancel());
+            AcceptCommand = RegisterCommand(() => AcceptCommand, ce => CanAccept(), e => Accept());
+            CancelCommand = RegisterCommand(() => CancelCommand, ce => CanCancel(), e => Cancel());
         }        
+
+        /// <summary>
+        /// Used for Initialization based on ViewParameters values
+        /// </summary>
+        public virtual void Initialize()
+        {
+
+        }
+
+        public virtual bool CanAccept()
+        {
+            return true;
+        }
+
+        public virtual bool CanCancel()
+        {
+            return true;
+        }
 
         public override void OnPropertyChanged(String property)
         {

@@ -1,0 +1,55 @@
+﻿<controls:MetroWindow x:Class="DemoApp.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        Title="DatFramework Demo App" 
+        Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="{DynamicResource AccentColorBrush}">    
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="5, 15, 5, 5">
+            <Button Command="{Binding AddPersonCommand}" Margin="10, 5, 0, 5" Padding="2" Width="100">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/DemoApp;component/Resources/Icons/plus32.png"  Height="16" Width="16" />
+                    <TextBlock Text="Add" Margin="8, 0, 0, 0" />
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding EditPersonCommand}" Margin="20, 5, 0, 5" Padding="2" Width="100">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/DemoApp;component/Resources/Icons/edit32.png"  Height="16" Width="16" />
+                    <TextBlock Text="Edit" Margin="8, 0, 0, 0" />
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding DeletePersonCommand}" Margin="20, 5, 0, 5" Padding="2" Width="100">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/DemoApp;component/Resources/Icons/delete32.png"  Height="16" Width="16" />
+                    <TextBlock Text="Delete" Margin="8, 0, 0, 0" />
+                </StackPanel>
+            </Button>
+
+            <TextBlock Text="Job :" Margin="25, 5, 5, 5" VerticalAlignment="Center" />
+            <ComboBox ItemsSource="{Binding Jobs}" SelectedItem="{Binding Jobs.SelectedItem}" DisplayMemberPath="{Binding Name}" MinWidth="200" Margin="5, 5, 0, 5" />
+
+            <TextBlock Text="Search :" Margin="25, 5, 5, 5" VerticalAlignment="Center" />
+            <TextBox Text="{Binding TextFilter, UpdateSourceTrigger=PropertyChanged}" MinWidth="290" Margin="5, 5, 0, 5" />
+        </StackPanel>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding DisplayedPersons}" SelectedItem="{Binding DisplayedPersons.SelectedItem}" Margin="0, 10, 0, 0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Full Name" DisplayMemberBinding="{Binding FullName}" />
+                    <GridViewColumn Header="Job" DisplayMemberBinding="{Binding Job}" />
+                    <GridViewColumn Header="Age" DisplayMemberBinding="{Binding Age}" />
+                    <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+    
+</controls:MetroWindow>
